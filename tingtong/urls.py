@@ -17,28 +17,32 @@ from django.contrib import admin
 from django.urls import path, include
 from apps.core.views import frontpage, signup
 from apps.feed.views import feed, search
+from apps.tingerprofile.views import tingerprofile
 from apps.feed.api import api_add_ting
 from django.contrib.auth import views
 
 urlpatterns = [
-    # 
+    #
     # Admin
-    # 
+    #
     path('admin/', admin.site.urls),
-    # 
-    # 
-    # 
-    path('', frontpage, name = 'frontpage'),
-    path('signup/', signup, name = 'signup'),
-    path('logout/', views.LogoutView.as_view(), name = 'logout'),
-    path('login/', views.LoginView.as_view(template_name = 'core/login.html'), name = 'login'),
-    # 
+    #
+    #
+    #
+    path('', frontpage, name='frontpage'),
+    path('signup/', signup, name='signup'),
+    path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('login/', views.LoginView.as_view(template_name='core/login.html'), name='login'),
+    #
     # App Views
-    # 
-    path('feed/', feed, name = 'feed' ),
-    path('search/', search, name = 'search' ),
+    #
+    path('feed/', feed, name='feed'),
+    path('search/', search, name='search'),
+    #
+    path('u/<str:username>/', tingerprofile, name='tingerprofile'),
+
     #
     # API
-    # 
+    #
     path('api/add_ting/', api_add_ting, name='api_add_ting')
 ]

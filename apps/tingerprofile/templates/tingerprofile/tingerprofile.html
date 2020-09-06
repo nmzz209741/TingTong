@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="container" id="feedapp">
+  <div class="columns">
+    <div class="column is-12">
+      <h1 class="title">Tinger Profile : {{user.username}}</h1>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-8">
+      <div class="wrapper-tings">
+        {% for ting in user.tings.all %}
+          <div class="tings">
+            <p class="name">{{ting.created_by.username}}</p>
+            <p>{{ting.body}}</p>
+            <p class="info">{{ting.created_at|naturaltime }}</p>
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
