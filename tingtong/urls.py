@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from apps.core.views import frontpage, signup
+from apps.feed.views import feed
 from django.contrib.auth import views
 
 urlpatterns = [
@@ -29,5 +30,9 @@ urlpatterns = [
     path('', frontpage, name = 'frontpage'),
     path('signup/', signup, name = 'signup'),
     path('logout/', views.LogoutView.as_view(), name = 'logout'),
-    path('login/', views.LoginView.as_view(template_name = 'core/login.html'), name = 'login')
+    path('login/', views.LoginView.as_view(template_name = 'core/login.html'), name = 'login'),
+    # 
+    # App Views
+    # 
+    path('feed/', feed, name = 'feed' ),
 ]

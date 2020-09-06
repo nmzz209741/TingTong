@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 LOGOUT_REDIRECT_URL = 'frontpage'
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'frontpage'
+LOGIN_REDIRECT_URL = 'feed'
 
 # Application definition
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.core',
+    'apps.feed',
     'apps.tingerprofile',
 ]
 
