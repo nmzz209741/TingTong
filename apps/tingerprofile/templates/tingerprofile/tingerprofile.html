@@ -9,7 +9,8 @@
       <p>Follows: {{ user.tingerprofile.follows.count }}</p>
 
       {% if user !=  request.user %}
-        <a href="{% url 'follow_tinger' user.username %}" class="button is-info">Follow</a>
+        <a href="{% url 'follow_tinger' user.username %}" class="button is-success">Follow</a>
+        <a href="{% url 'unfollow_tinger' user.username %}" class="button is-danger">Unfollow</a>
       {% endif %}
     </div>
   </div>

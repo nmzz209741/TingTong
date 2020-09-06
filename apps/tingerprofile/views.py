@@ -19,3 +19,10 @@ def follow_tinger(request, username):
     request.user.tingerprofile.follows.add(user.tingerprofile)
 
     return redirect('tingerprofile', username=username)
+
+@login_required
+def unfollow_tinger(request, username):
+  user = get_object_or_404(User, username=username)
+  request.user.tingerprofile.follows.remove(user.tingerprofile)
+
+  return redirect('tingerprofile', username=username)
