@@ -43,8 +43,6 @@
     },
     methods: {
       submitTing() {
-        console.log('submitTing');
-
         if (this.body.length > 0) {
           let ting = {
             'body': this.body,
@@ -53,7 +51,6 @@
           };
 
           this.tings.unshift(ting);
-          //  Send to backend
 
           fetch('/api/add_ting/', {
             method: 'POST',
