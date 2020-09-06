@@ -1,5 +1,5 @@
 {% extends 'core/base.html' %}
-
+{% load humanize %}
 {% block content %}
 <div class="container" id="feedapp">
   <div class="columns">
@@ -17,6 +17,13 @@
       </div>
 
       <div class="wrapper-tings">
+        {% for ting in tings %}
+          <div class="tings">
+            <p class="name">{{ting.created_by.username}}</p>
+            <p>{{ting.body}}</p>
+            <p class="info">{{ting.created_at|naturaltime }}</p>
+          </div>
+        {% endfor %}
         <div class="tings" v-for="ting in tings">
           <p class="name">[[ ting.tinger ]]</p>
           <p>[[ ting.body ]]</p>
