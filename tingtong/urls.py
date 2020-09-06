@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from apps.core.views import frontpage, signup
-from apps.feed.views import feed
+from apps.feed.views import feed, search
 from apps.feed.api import api_add_ting
 from django.contrib.auth import views
 
@@ -36,6 +36,7 @@ urlpatterns = [
     # App Views
     # 
     path('feed/', feed, name = 'feed' ),
+    path('search/', search, name = 'search' ),
     #
     # API
     # 
