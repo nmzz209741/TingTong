@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from apps.core.views import frontpage, signup
 from apps.feed.views import feed, search
-from apps.tingerprofile.views import tingerprofile
+from apps.tingerprofile.views import tingerprofile, follow_tinger
 from apps.feed.api import api_add_ting
 from django.contrib.auth import views
 
@@ -40,6 +40,7 @@ urlpatterns = [
     path('search/', search, name='search'),
     #
     path('u/<str:username>/', tingerprofile, name='tingerprofile'),
+    path('u/<str:username>/follow/', follow_tinger, name='follow_tinger'),
 
     #
     # API

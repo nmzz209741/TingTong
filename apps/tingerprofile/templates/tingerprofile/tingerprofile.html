@@ -4,7 +4,13 @@
 <div class="container" id="feedapp">
   <div class="columns">
     <div class="column is-12">
-      <h1 class="title">Tinger Profile : {{user.username}}</h1>
+      <h1 class="title">{{user.username}}</h1>
+      <p>Followers: {{ user.tingerprofile.followed_by.count }}</p>
+      <p>Follows: {{ user.tingerprofile.follows.count }}</p>
+
+      {% if user !=  request.user %}
+        <a href="{% url 'follow_tinger' user.username %}" class="button is-info">Follow</a>
+      {% endif %}
     </div>
   </div>
   <div class="columns">
