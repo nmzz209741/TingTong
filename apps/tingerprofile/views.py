@@ -26,3 +26,7 @@ def unfollow_tinger(request, username):
   request.user.tingerprofile.follows.remove(user.tingerprofile)
 
   return redirect('tingerprofile', username=username)
+
+def followers(request, username):
+  user = get_object_or_404(User, username=username)
+  return render(request, 'tingerprofile/followers.html', {'user': user})

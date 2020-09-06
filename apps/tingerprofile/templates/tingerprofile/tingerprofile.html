@@ -5,7 +5,9 @@
   <div class="columns">
     <div class="column is-12">
       <h1 class="title">{{user.username}}</h1>
-      <p>Followers: {{ user.tingerprofile.followed_by.count }}</p>
+      <p>
+        <a href="{% url 'followers' user.username %}">
+        Followers: {{ user.tingerprofile.followed_by.count }}</a></p>
       <p>Follows: {{ user.tingerprofile.follows.count }}</p>
 
       {% if user !=  request.user %}
