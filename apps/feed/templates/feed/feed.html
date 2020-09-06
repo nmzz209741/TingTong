@@ -1,11 +1,63 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container" id="feedapp">
   <div class="columns">
     <div class="column is-12">
-      <h1 class="title">My Feed</h1>
+      <div class="wrapper-form">
+        <form @submit.prevent="submitTing()">
+          <div class="field">
+            <div class="control"><textarea name="body" cols="30" rows="10" class="textarea" v-model="body"
+                placeholder="Are there any tings on thy mind?"></textarea></div>
+          </div>
+          <div class="field">
+            <div class="control"><button class="button is-success">Submit</button></div>
+          </div>
+        </form>
+      </div>
+
+      <div class="wrapper-tings">
+        <div class="tings" v-for="ting in tings">
+          <p class="name">[[ ting.tinger ]]</p>
+          <p>[[ ting.body ]]</p>
+          <p class="info">[[ting.created_at]]</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+  new Vue({
+    el: '#feedapp',
+    delimiters: ['[[', ']]'],
+    data() {
+      return {
+        tings: [],
+        body: '',
+        tinger: '{{ request.user.username }}',
+        created_at: 'Now'
+      }
+    },
+    methods: {
+      submitTing() {
+        console.log('submitTing');
+
+        if (this.body.length > 0) {
+          let ting = {
+            'body': this.body,
+            'tinger': this.tinger,
+            'created_at': this.created_at,
+          };
+
+          this.tings.unshift(ting);
+          //  Send to backend
+        }
+        this.body = '';
+      }
+    }
+  })
+</script>
 {% endblock %}
