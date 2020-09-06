@@ -54,6 +54,22 @@
 
           this.tings.unshift(ting);
           //  Send to backend
+
+          fetch('/api/add_ting/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': '{{ csrf_token }}',
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify(ting)
+          })
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((error) => {
+            console.error(error)
+          });
         }
         this.body = '';
       }
