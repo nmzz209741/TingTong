@@ -30,12 +30,14 @@ def search(request):
 
   if len(query)>0:
     tingers = User.objects.filter(username__icontains=query)
+    tings = Ting.objects.filter(body__icontains=query)
   else:
     tingers = []
 
   context = {
     'query': query,
     'tingers': tingers,
+    'tings': tings,
   }
 
   return render(request, 'feed/search.html', context)

@@ -23,12 +23,99 @@
 
       <hr>
       <div class="search-results">
-        {% for tinger in tingers %}
-          <p>{{tinger.username}}</p>
+        {% if not tings and not tingers %}
+        <p>No results, please try a different search term.</p>
+        {% endif %}
+
+        {% if tingers %}
+          <strong>Tingers</strong>
+          {% for tinger in tingers %}
+            <p><a href="{% url 'tingerprofile'  tinger.username %}">{{tinger.username}}</a></p>
+          {% endfor %}
+        {% endif %}
+
+        {% if tings %}
+        <strong>tings</strong>
+        
+      <div class="wrapper-tings">   
+        {% for ting in tings %}
+          <div class="tings">
+            <article class="media">
+              <figure class="media-left">
+                <p class="image is-64x64">
+                  {% if ting.created_by.tingerprofile.avatar %}
+                  <img src="{{ting.created_by.tingerprofile.avatar.url}}" alt="">
+                  {% endif %}
+                </p>
+              </figure>
+
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong><a href="{% url 'tingerprofile'  ting.created_by.username %}">{{ting.created_by.username}}</a></strong>
+                    <small>{{ting.created_at|naturaltime }}</small>
+                    <br>
+                    {{ting.body}}
+                    <br>
+                    <a @click="likeTing({{ting.id}})" v-if="!liked_tings.includes({{ting.ig}})">Like</a>
+                    <span v-if="liked_tings.includes({{ting.ig}})">Liked</span>
+                    <small id ="likes-{{ting.id}}">{{ting.likes.count}} likes</small>
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
         {% endfor %}
+
+      </div>
+      {% endif %}
       </div>
 
     </div>
   </div>
 </div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+  new Vue({
+    el: '#tingerprofileapp',
+    delimiters: ['[[', ']]'],
+    data() {
+      return {
+        liked_tings: [{% for ting in tings %}{%if ting.liked%}{{ting.id}}, {%endif%}{%endfor%}],
+      }
+    },
+    methods: {
+      likeTing(ting_id) {
+        this.liked_tings.push(parseInt(ting_id));
+
+        var ting = {
+          'ting_id':ting_id
+        };
+
+        fetch('/api/add_like/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': '{{ csrf_token }}',
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify(ting)
+          })
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((error) => {
+            console.error(error)
+          });
+
+          const el = document.getElementById('likes-'+ting_id);
+          const likes = parseInt(el.innerHTML.split(' ')[0]+1)
+          el.innerHTML= likes + ' likes';
+      },
+    }
+  })
+</script>
 {% endblock %}
