@@ -31,7 +31,7 @@
               <div class="media-content">
                 <div class="content">
                   <p>
-                    <strong>{{ting.created_by.username}}</strong>
+                    <strong><a href="{% url 'tingerprofile'  ting.created_by.username %}">{{ting.created_by.username}}</a></strong>
                     <small>{{ting.created_at|naturaltime }}</small>
                     <br>
                     {{ting.body}}
