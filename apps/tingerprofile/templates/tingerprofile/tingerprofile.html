@@ -5,6 +5,12 @@
   <div class="columns">
     <div class="column is-12">
       <h1 class="title">{{user.username}}</h1>
+      {% if user.tingerprofile.avatar %}
+      <figure class="image is-128x128">
+        <img src="{{ user.tingerprofile.avatar.url }}" alt="">
+      </figure>
+      <hr>
+      {% endif %}
       <p>
         <a href="{% url 'followers' user.username %}">
         Followers: {{ user.tingerprofile.followed_by.count }}</a></p>
@@ -24,9 +30,26 @@
       <div class="wrapper-tings">
         {% for ting in user.tings.all %}
           <div class="tings">
-            <p class="name">{{ting.created_by.username}}</p>
-            <p>{{ting.body}}</p>
-            <p class="info">{{ting.created_at|naturaltime }}</p>
+            <article class="media">
+              <figure class="media-left">
+                <p class="image is-64x64">
+                  {% if ting.created_by.tingerprofile.avatar %}
+                  <img src="{{ting.created_by.tingerprofile.avatar.url}}" alt="">
+                  {% endif %}
+                </p>
+              </figure>
+
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>{{ting.created_by.username}}</strong>
+                    <small>{{ting.created_at|naturaltime }}</small>
+                    <br>
+                    {{ting.body}}
+                  </p>
+                </div>
+              </div>
+            </article>
           </div>
         {% endfor %}
 

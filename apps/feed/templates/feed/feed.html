@@ -17,18 +17,32 @@
       </div>
 
       <div class="wrapper-tings">
-        {% for ting in tings %}
+        
+        {% for ting in user.tings.all %}
           <div class="tings">
-            <p class="name">{{ting.created_by.username}}</p>
-            <p>{{ting.body}}</p>
-            <p class="info">{{ting.created_at|naturaltime }}</p>
+            <article class="media">
+              <figure class="media-left">
+                <p class="image is-64x64">
+                  {% if ting.created_by.tingerprofile.avatar %}
+                  <img src="{{ting.created_by.tingerprofile.avatar.url}}" alt="">
+                  {% endif %}
+                </p>
+              </figure>
+
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>{{ting.created_by.username}}</strong>
+                    <small>{{ting.created_at|naturaltime }}</small>
+                    <br>
+                    {{ting.body}}
+                  </p>
+                </div>
+              </div>
+            </article>
           </div>
         {% endfor %}
-        <div class="tings" v-for="ting in tings">
-          <p class="name">[[ ting.tinger ]]</p>
-          <p>[[ ting.body ]]</p>
-          <p class="info">[[ting.created_at]]</p>
-        </div>
+
       </div>
     </div>
   </div>
@@ -45,7 +59,8 @@
         tings: [],
         body: '',
         tinger: '{{ request.user.username }}',
-        created_at: 'Now'
+        created_at: 'Now',
+        avatar: '{%if request.user.tingerprofile.avatar %}{{request.user.tingerprofile.avatar.url}}{%endif%}'
       }
     },
     methods: {
@@ -55,6 +70,7 @@
             'body': this.body,
             'tinger': this.tinger,
             'created_at': this.created_at,
+            'avatar': this.avatar,
           };
 
           this.tings.unshift(ting);
