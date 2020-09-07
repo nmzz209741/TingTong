@@ -5,9 +5,19 @@ from .forms import TingerProfileForm
 
 def tingerprofile(request, username):
     user = get_object_or_404(User, username=username)
+    tings = user.tings.all()
+    for ting in tings:
+      likes = ting.likes.filter(created_by_id=request.user.id)
+
+      if likes.count() > 0:
+        ting.liked = True
+      else:
+        ting.liked=False
+
 
     context = {
-        'user': user
+        'user': user,
+        'tings': tings
     }
 
     return render(request, 'tingerprofile/tingerprofile.html', context)

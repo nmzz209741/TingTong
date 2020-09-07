@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from apps.core.views import frontpage, signup
 from apps.feed.views import feed, search
 from apps.tingerprofile.views import tingerprofile, follow_tinger, unfollow_tinger, followers, edit_profile
-from apps.feed.api import api_add_ting
+from apps.feed.api import api_add_ting, api_add_like
 from django.contrib.auth import views
 
 urlpatterns = [
@@ -50,5 +50,6 @@ urlpatterns = [
     #
     # API
     #
-    path('api/add_ting/', api_add_ting, name='api_add_ting')
+    path('api/add_ting/', api_add_ting, name='api_add_ting'),
+    path('api/add_like/', api_add_like, name='api_add_like'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

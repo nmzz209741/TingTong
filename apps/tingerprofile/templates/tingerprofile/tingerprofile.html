@@ -1,7 +1,7 @@
 {% extends 'core/base.html' %}
 {% load humanize %}
 {% block content %}
-<div class="container" id="feedapp">
+<div class="container" id="tingerprofileapp">
   <div class="columns">
     <div class="column is-12">
       <h1 class="title">{{user.username}}</h1>
@@ -28,7 +28,7 @@
   <div class="columns">
     <div class="column is-8">
       <div class="wrapper-tings">
-        {% for ting in user.tings.all %}
+        {% for ting in tings %}
           <div class="tings">
             <article class="media">
               <figure class="media-left">
@@ -46,6 +46,10 @@
                     <small>{{ting.created_at|naturaltime }}</small>
                     <br>
                     {{ting.body}}
+                    <br>
+                    <a @click="likeTing({{ting.id}})" v-if="!liked_tings.includes({{ting.ig}})">Like</a>
+                    <span v-if="liked_tings.includes({{ting.ig}})">Liked</span>
+                    <small id ="likes-{{ting.id}}">{{ting.likes.count}} likes</small>
                   </p>
                 </div>
               </div>
@@ -57,4 +61,48 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+  new Vue({
+    el: '#tingerprofileapp',
+    delimiters: ['[[', ']]'],
+    data() {
+      return {
+        liked_tings: [{% for ting in tings %}{%if ting.liked%}{{ting.id}}, {%endif%}{%endfor%}],
+      }
+    },
+    methods: {
+      likeTing(ting_id) {
+        this.liked_tings.push(parseInt(ting_id));
+
+        var ting = {
+          'ting_id':ting_id
+        };
+
+        fetch('/api/add_like/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': '{{ csrf_token }}',
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify(ting)
+          })
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((error) => {
+            console.error(error)
+          });
+
+          const el = document.getElementById('likes-'+ting_id);
+          const likes = parseInt(el.innerHTML.split(' ')[0]+1)
+          el.innerHTML= likes + ' likes';
+      },
+    }
+  })
+</script>
 {% endblock %}
