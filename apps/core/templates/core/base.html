@@ -30,6 +30,7 @@
         <a class="navbar-item" href="{% url 'feed' %}">Feed</a>
         <a class="navbar-item" href="{% url 'search' %}">Search</a>
         <a class="navbar-item" href="{% url 'tingerprofile' request.user.username %}">Profile</a>
+        <a class="navbar-item" href="{% url 'edit_profile' %}">Edit Profile</a>
         {% endif %}
         <div class="navbar-item">
           <div class="buttons">

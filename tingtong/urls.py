@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from apps.core.views import frontpage, signup
 from apps.feed.views import feed, search
-from apps.tingerprofile.views import tingerprofile, follow_tinger, unfollow_tinger, followers
+from apps.tingerprofile.views import tingerprofile, follow_tinger, unfollow_tinger, followers, edit_profile
 from apps.feed.api import api_add_ting
 from django.contrib.auth import views
 
@@ -43,9 +45,10 @@ urlpatterns = [
     path('u/<str:username>/follow/', follow_tinger, name='follow_tinger'),
     path('u/<str:username>/unfollow/', unfollow_tinger, name='unfollow_tinger'),
     path('u/<str:username>/followers/', followers, name='followers'),
+    path('edit_profile/', edit_profile, name='edit_profile'),
 
     #
     # API
     #
     path('api/add_ting/', api_add_ting, name='api_add_ting')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
