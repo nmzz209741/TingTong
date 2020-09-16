@@ -73,7 +73,7 @@
         this.liked_tings.push(parseInt(ting_id));
 
         var ting = {
-          'ting_id':ting_id
+          'ting_id': ting_id
         };
 
         fetch('/api/add_like/', {
@@ -92,9 +92,9 @@
             console.error(error)
           });
 
-          const el = document.getElementById('likes-'+ting_id);
-          const likes = parseInt(el.innerHTML.split(' ')[0]+1)
-          el.innerHTML= likes + ' likes';
+        const el = document.getElementById('likes-' + ting_id);
+        const likes = parseInt(el.innerHTML.split(' ')[0]) + 1
+        el.innerHTML = likes + ' likes';
       },
       submitTing() {
         if (this.body.length > 0) {
@@ -108,20 +108,20 @@
           this.tings.unshift(ting);
 
           fetch('/api/add_ting/', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRFToken': '{{ csrf_token }}',
-            },
-            credentials: 'same-origin',
-            body: JSON.stringify(ting)
-          })
-          .then((response) => {
-            console.log(response)
-          })
-          .catch((error) => {
-            console.error(error)
-          });
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+              },
+              credentials: 'same-origin',
+              body: JSON.stringify(ting)
+            })
+            .then((response) => {
+              console.log(response)
+            })
+            .catch((error) => {
+              console.error(error)
+            });
         }
         this.body = '';
       }

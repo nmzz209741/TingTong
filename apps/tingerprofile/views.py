@@ -13,8 +13,7 @@ def tingerprofile(request, username):
         ting.liked = True
       else:
         ting.liked=False
-
-
+ 
     context = {
         'user': user,
         'tings': tings
