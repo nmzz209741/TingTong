@@ -21,6 +21,8 @@ from apps.core.views import frontpage, signup
 from apps.feed.views import feed, search
 from apps.tingerprofile.views import tingerprofile, follow_tinger, unfollow_tinger, followers, edit_profile
 from apps.feed.api import api_add_ting, api_add_like
+from apps.conversation.views import conversations_list, conversation_detail
+from apps.conversation.api import api_add_message
 from django.contrib.auth import views
 
 urlpatterns = [
@@ -46,10 +48,14 @@ urlpatterns = [
     path('u/<str:username>/unfollow/', unfollow_tinger, name='unfollow_tinger'),
     path('u/<str:username>/followers/', followers, name='followers'),
     path('edit_profile/', edit_profile, name='edit_profile'),
+    # 
+    path('conversations/', conversations_list, name='conversations_list'), 
+    path('conversation/<str:user_id>/', conversation_detail, name='conversation_detail'), 
 
     #
     # API
     #
+    path('api/add_message/', api_add_message, name='api_add_message'),
     path('api/add_ting/', api_add_ting, name='api_add_ting'),
     path('api/add_like/', api_add_like, name='api_add_like'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

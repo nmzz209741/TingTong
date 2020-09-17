@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.feed',
     'apps.tingerprofile',
+    'apps.conversation',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,15 @@
+db.sqlite3
+# Python bytecode
+__pycache__
+*.pyc
+
+# Django dynamic directories
+logs
+media
+
+# Environment variables
+.env
+.env.*
+
+# Static files
+node_modules
