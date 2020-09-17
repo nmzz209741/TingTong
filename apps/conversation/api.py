@@ -2,6 +2,7 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .models import ConversationMessage
+from apps.notification.utilities import create_notification
 
 @login_required
 def api_add_message(request):
@@ -10,4 +11,8 @@ def api_add_message(request):
   conversation_id = data['conversation_id']
   message = ConversationMessage.objects.create(conversation_id=conversation_id, content=content, created_by=request.user)
 
+  to_user = None
+  for user in message.conversations.users.all():
+    if user != request.user:
+      create_notification(request, user, 'message')
   return JsonResponse({'success': True})

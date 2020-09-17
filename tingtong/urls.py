@@ -21,6 +21,7 @@ from apps.core.views import frontpage, signup
 from apps.feed.views import feed, search
 from apps.tingerprofile.views import tingerprofile, follow_tinger, unfollow_tinger, followers, edit_profile
 from apps.feed.api import api_add_ting, api_add_like
+from apps.notification.views import notifications
 from apps.conversation.views import conversations_list, conversation_detail
 from apps.conversation.api import api_add_message
 from django.contrib.auth import views
@@ -42,6 +43,9 @@ urlpatterns = [
     #
     path('feed/', feed, name='feed'),
     path('search/', search, name='search'),
+    # 
+    path('notifications/', notifications, name='notifications'),
+
     #
     path('u/<str:username>/', tingerprofile, name='tingerprofile'),
     path('u/<str:username>/follow/', follow_tinger, name='follow_tinger'),

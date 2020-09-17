@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import TingerProfileForm
+from apps.notification.utilities import create_notification
 
 def tingerprofile(request, username):
     user = get_object_or_404(User, username=username)
@@ -26,7 +27,7 @@ def tingerprofile(request, username):
 def follow_tinger(request, username):
     user = get_object_or_404(User, username=username)
     request.user.tingerprofile.follows.add(user.tingerprofile)
-
+    create_notification(request, user, 'follower')
     return redirect('tingerprofile', username=username)
 
 @login_required
