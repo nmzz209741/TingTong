@@ -2,6 +2,8 @@ db.sqlite3
 # Python bytecode
 __pycache__
 *.pyc
+*/*.pyc
+*/*/*.pyc
 
 # Django dynamic directories
 logs
