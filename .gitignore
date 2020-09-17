@@ -5,10 +5,6 @@ __pycache__
 */*.pyc
 */*/*.pyc
 
-# Django dynamic directories
-logs
-media
-
 # Environment variables
 .env
 .env.*
