@@ -1,5 +1,2 @@
-web: gunicorn tingtong.wsgi
-web: python manage.py migrate
-web: python manage.py makemigrations
-web: python manage.py migrate
-web: python manage.py runserver 0.0.0.0:5000
+release: python manage.py migrate --noinput
+web: gunicorn mysite.wsgi
