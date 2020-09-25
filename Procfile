@@ -1,2 +1,2 @@
 release: python manage.py migrate --noinput
-web: gunicorn mysite.wsgi
+web: gunicorn tingtong.wsgi --log-file
